@@ -6,20 +6,22 @@
 </head>
 <body>
 	<main id="app"></main>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.24.2/babel.js"></script>
 	<!--React sirve para crear componentes-->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.5.4/react.js"></script>
 	<!--React DOM sirve para usar componentes en una aplicacion-->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.5.4/react-dom.js"></script>
-	<script>
+	<script type="text/babel">
 		/*Props: Datos que queremos pasar a este componente al momento de mostrarlo en la UI*/
 		function Hola(props){
 			//Un props puede ser el nombre
 			const name = props.name;
 
-			//Un componente devuelve algo al UI
-			return React.DOM.h1({
-				id: 'Title',
-			}, `Hola ${name}`);
+			return (
+				<h1 id="Title">
+					Hola {name}
+				</h1>
+			);
 		}
 
 		const hola = React.createElement(Hola,{
@@ -27,16 +29,14 @@
 		})
 
 		ReactDOM.render(
-			hola,
+			<Hola name = "Alejandro" />,
 			document.getElementById('app')
 		);
 
 		setTimeout(
 			() => {
 				ReactDOM.render(
-					React.createElement(Hola,{
-						name: 'Alejandro Irimia'
-					}),
+					<Hola name = "Alejandro Irimia" />,
 					document.getElementById('app')
 				);
 			},
