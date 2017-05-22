@@ -14,24 +14,19 @@
 	<script type="text/babel">
 		/*Props: Datos que queremos pasar a este componente al momento de mostrarlo en la UI*/
 
-		/Funcion pura*/
+		/*Funcion pura*/
+		/*Componente puro: Se encarga de la visualizacion de la UI*/
 		function Hola(props){
-			//Un props puede ser el nombre
-			const name = props.name;
-
 			return (
-				<h1 id="Title">
-					Hola {name}
+				<h1 id="Title" onClick={props.onClick}>
+					Hola {props.name} {props.count}
 				</h1>
 			);
 		}
 
-		const hola = React.createElement(Hola,{
-			name: 'Alejandro',
-		})
-
 		/*Usando clases*/
 		/*Acceso a mas funcionalidad de React que funcion Pura*/
+		/*Componente con estado: Logica de la aplicacion. Llama a los metodos que renderizan la UI*/
 		class MiComponente extends React.Component{
 
 			constructor(props){
@@ -51,68 +46,18 @@
 			}
 
 			render(){
-				const name = this.props.name;
 				return (
-					<h1 id="Title" onClick={this.handleClick}>
-						Hola {name} {this.state.count}
-					</h1>
+					<Hola
+						name={this.props.name}
+						count={this.state.count}
+						onClick={this.handleClick}
+					/>
 				);
 			}
 		}
-
-		/*No es buena idea utilizar un componente que herede de PureComponent en mitad del arbol. si tiene componentes hijos que heredan de Componente y cambian el padre no lo va a renderizar*/
-		class OtroComponente extends React.PureComponent{
-
-			constructor(props){
-				super(props);
-				this.state = {
-					count: 0,
-				};
-
-				this.handleClick = this.handleClick.bind(this);
-			}
-
-
-			handleClick(event){
-				this.setState({
-					count: this.state.count + 1,
-				});
-			}
-
-			render(){
-				const name = this.props.name;
-				return (
-					<h1 id="Title" onClick={this.handleClick}>
-						Hola {name} {this.state.count}
-					</h1>
-				);
-			}
-		}
-
-		/*Metodo deprecado*/
-		const OtroComponente2 = React.createClass({
-			getInitialState(){
-				return{
-					count: 0,
-				}
-			},
-			handleClick(event){
-				this.setState({
-					count: this.state.count + 1,
-				});
-			},
-			render(){
-				const name = this.props.name;
-				return (
-					<h1 id="Title" onClick={this.handleClick}>
-						Hola {name} {this.state.count}
-					</h1>
-				);
-			}
-		})
 
 		ReactDOM.render(
-			<OtroComponente2 name="Alejandro" />,
+			<MiComponente name="Alejandro" />,
 			document.getElementById('app')
 		);
 	</script>
