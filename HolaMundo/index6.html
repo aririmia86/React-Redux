@@ -29,13 +29,74 @@
 		/*Componente con estado: Logica de la aplicacion. Llama a los metodos que renderizan la UI*/
 		class MiComponente extends React.Component{
 
+			/*Montado*/
+			/*1. constructor*/
 			constructor(props){
 				super(props);
 				this.state = {
 					count: 0,
 				};
-
+				console.log('1. constructor');
 				this.handleClick = this.handleClick.bind(this);
+			}
+
+			/*2. componentWillMount*/
+			componentWillMount(){
+				console.log('2. componentWillMount');
+			}
+
+			/*3. render*/
+			render(){
+				console.log('3. render');
+				return (
+					<Hola
+						name={this.props.name}
+						count={this.state.count}
+						onClick={this.handleClick}
+					/>
+				);
+			}
+
+			/*4. componentDidMount*/
+			componentDidMount(){
+				console.log('4. componentDidMount');
+				document.addEventListener('click',this.handleClick);
+			}
+
+			/*Actualizacion*/
+			/*1. componentWillReceiveProps*/
+			componentWillReceiveProps(nextProps){
+				/*this.setState({
+					count: this.state.count = 2,
+				});*/
+				console.log('1. componentWillReceiveProps');
+			}
+
+			/*2. componentWillReceiveProps*/
+			shouldComponentUpdate(nextProps,nextState){
+				console.log('2. componentWillReceiveProps');
+				if(nextState.count !== this.state.count) return true;
+				return false;
+			}
+			
+			/*3. componentWillUpdate*/
+			componentWillUpdate(){
+				console.log('3. componentWillUpdate');
+			}
+
+			/*4. render*/
+			//render(){}
+
+			/*5. componentDidUpdate*/
+			componentDidUpdate(){
+				console.log('5. componentDidUpdate');
+			}
+
+			/*Desmontado*/
+			/*1. componentWillUnmount*/
+			componentWillUnmount(){
+				console.log('1. componentWillUnmount');
+				document.removeEventListener('click',this.handleClick);
 			}
 
 
@@ -45,15 +106,6 @@
 				});
 			}
 
-			render(){
-				return (
-					<Hola
-						name={this.props.name}
-						count={this.state.count}
-						onClick={this.handleClick}
-					/>
-				);
-			}
 		}
 
 		ReactDOM.render(
