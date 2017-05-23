@@ -18,7 +18,7 @@
 		/*Componente puro: Se encarga de la visualizacion de la UI*/
 		function Hola(props){
 			return (
-				<h1 id="Title" onClick={props.onClick}>
+				<h1 id="Title" onClick={props.onClick} onMouseEnter={props.onMouseEnter}>
 					Hola {props.name} {props.count}
 				</h1>
 			);
@@ -53,6 +53,7 @@
 						name={this.props.name}
 						count={this.state.count}
 						onClick={this.handleClick}
+						onMouseEnter={this.handleMouseEnter}
 					/>
 				);
 			}
@@ -104,6 +105,11 @@
 				this.setState({
 					count: this.state.count + 1,
 				});
+			}
+
+			/*Solo necesitamos hacer bind cuando necesitamos acceder al this del componente, en onMouseEnter solo hicimos console.log del event por lo que no necesitamos hacer el bind.*/
+			handleMouseEnter(event){
+				console.log(event);
 			}
 
 		}
