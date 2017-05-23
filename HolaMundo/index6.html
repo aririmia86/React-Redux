@@ -16,12 +16,17 @@
 
 		/*Funcion pura*/
 		/*Componente puro: Se encarga de la visualizacion de la UI*/
-		function Hola(props){
+		/*El contexto es una funcionalidad experimental. Mejor no usarla en nuestro codigo*/
+		function Hola(props, context){
 			return (
 				<h1 id="Title" onClick={props.onClick} onMouseEnter={props.onMouseEnter}>
-					Hola {props.name} {props.count}
+					Hola {props.name} {props.count} {context.count}
 				</h1>
 			);
+		}
+
+		Hola.contextTypes = {
+			count: React.PropTypes.number
 		}
 
 		/*Usando clases*/
@@ -38,6 +43,12 @@
 				};
 				console.log('1. constructor');
 				this.handleClick = this.handleClick.bind(this);
+			}
+
+			getChildContext() {
+				return {
+					count: this.state.count,
+				};
 			}
 
 			/*2. componentWillMount*/
@@ -113,6 +124,10 @@
 			}
 
 		}
+
+		MiComponente.childContextTypes = {
+			count: React.PropTypes.number,
+		};
 
 		ReactDOM.render(
 			<MiComponente name="Alejandro" />,
