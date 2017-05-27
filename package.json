@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/aririmia86/React-Redux#readme",
   "dependencies": {
-    "react": "^15.5.4"
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4"
   }
 }
