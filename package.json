@@ -17,7 +17,15 @@
   },
   "homepage": "https://github.com/aririmia86/React-Redux#readme",
   "dependencies": {
-    "react": "^15.5.4",
-    "react-dom": "^15.5.4"
+    "react": "^15.4.1",
+    "react-dom": "^15.4.1"
+  },
+  "devDependencies": {
+    "babel-core": "^6.20.0",
+    "babel-loader": "^6.2.9",
+    "babel-preset-latest-minimal": "^1.1.2",
+    "babel-preset-react": "^6.16.0",
+    "json-loader": "^0.5.4",
+    "webpack": "^1.13.3"
   }
 }
