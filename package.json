@@ -18,7 +18,8 @@
   "homepage": "https://github.com/aririmia86/React-Redux#readme",
   "dependencies": {
     "react": "^15.4.1",
-    "react-dom": "^15.4.1"
+    "react-dom": "^15.4.1",
+    "react-router-dom": "^4.1.1"
   },
   "devDependencies": {
     "babel-core": "^6.20.0",
