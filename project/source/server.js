@@ -1,8 +1,9 @@
 import http from 'http';
 import React from 'react';
-import { renderToString } from 'react-dom/server';
+import { renderToString, renderToStaticMarkup } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
 import Pages from './pages/containers/Page.jsx';
+import Layout from './pages/components/Layout.jsx';
 
 function requestHandler(request, response) {
 
@@ -22,7 +23,15 @@ function requestHandler(request, response) {
     response.end();
   }
 
-  response.write(html);
+  //Devuelve un html estatico como si no fuera generado por React, sin data-react-id o similar
+  response.write(
+    renderToStaticMarkup(
+      <Layout
+        title="Aplicación"
+        content={html}
+      />
+    )
+  );
   response.end();
 }
 
