@@ -4,7 +4,8 @@
   "description": "Curso profesional de React con Redux https://platzi.com/cursos/react/",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "bff": "node ./project/built/server/index.js",
+    "sfs": "serve ./project/built/statics/ --port 3001 --cache 0"
   },
   "repository": {
     "type": "git",
