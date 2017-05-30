@@ -12,25 +12,21 @@ function Pages() {
   return (
     <main role="application">
       <Switch>
-        {/* Lista de articulos */}
         <Route
           path="/"
           exact
           component={Home}
         />
-        {/* Detalle de articulo */}
         <Route
           path="/post/:id"
           exact
           component={Post}
         />
-       {/* Perfil de usuario */}
         <Route
           path="/user/:id"
           exact
           component={Profile}
         />
-        {/* Error 404 */}
         <Route component={Error404} />
       </Switch>
     </main>

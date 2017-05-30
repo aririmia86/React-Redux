@@ -4,7 +4,7 @@ import { StaticRouter } from 'react-router-dom';
 import Pages from './pages/containers/Page.jsx';
 
 render (
-  <StaticRouter location={request.url} context={context}>
+  <StaticRouter>
     <Pages />
   </StaticRouter>,
   document.getElementById('render-target'),
