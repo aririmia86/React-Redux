@@ -7,5 +7,5 @@ render (
   <StaticRouter>
     <Pages />
   </StaticRouter>,
-  document.getElementById('render-target'),
+  document.getElementById('render-target')
 )
