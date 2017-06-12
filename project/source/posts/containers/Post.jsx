@@ -9,17 +9,23 @@ class Post extends Component {
     this.state = {
       loading: true,
       user: props.user || null,
-      comments: [],
+      comments: props.comments || null,
     };
   }
 
   async componentDidMount() {
+    if (!!this.state.user && !!this.state.comments) {
+      return this.setState({
+        loading: false
+      });
+    }
     const [
       user,
       comments,
     ] = await Promise.all([
       //Promise.resolve(null) devuelve nulo
       !this.state.user ? api.users.getSingle(this.props.userId) : Promise.resolve(null),
+      !this.state.comments ? api.posts.getComments(this.props.id) : Promise.resolve(null),
       api.posts.getComments(this.props.id),
     ]);
 
@@ -27,13 +33,15 @@ class Post extends Component {
       loading: false,
       //Si trajimos datos de usuario de esta peticion usamos dichos datos, si no los sacamos del estado
       user: user || this.state.user,
-      comments,
+      comments: comments || this.state.comments,
     })
   }
   render() {
     return(
       <article id={`post-${this.props.id}`}>
-        <h2> {this.props.title} </h2>
+        <Link to={`/post/${this.props.id}`}>
+          <h2> {this.props.title} </h2>
+        </Link>
         <p>
           {this.props.body}
         </p>

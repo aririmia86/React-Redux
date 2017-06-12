@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import Post from '../../posts/containers/Post.jsx';
 import api from '../../api.js';
+import Loading from '../../shared/containers/Loading.jsx';
 
 class Profile extends Component {
   constructor(props) {
@@ -30,11 +31,14 @@ class Profile extends Component {
   }
 
   render() {
+    if (this.state.loading) {
+      return <Loading />
+    }
     return (
       <section name="Profile">
         <h2>Profile of {this.state.user.name}</h2>
         <fieldset>
-          <legend>Basic Infor</legend>
+          <legend>Basic Info</legend>
           <input type="email" value={this.state.user.email} disabled />          
         </fieldset>
         {this.state.user.address && (
