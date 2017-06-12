@@ -45,7 +45,7 @@ class Post extends Component {
         <p>
           {this.props.body}
         </p>
-        {!this.props.loading && (
+        {!this.state.loading && (
           <div>
             <Link to={`/user/${this.state.user.id}`}>
               {this.state.user.name}
