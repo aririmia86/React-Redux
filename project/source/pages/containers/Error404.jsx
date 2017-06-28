@@ -1,17 +1,18 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
+import Title from '../../shared/components/Title';
 
-class Error404 extends Component {
-  render() {
-    return (
-      <section name="Error404">
-        <h1>Error 404</h1>
-        <Link to="/">
-          Go back to home
-        </Link>
-      </section>
-    );
-  }
+function Error404() {
+  return (
+    <section name="Error404">
+      <Title>
+        Error 404
+      </Title>
+      <Link to="/">
+        Go back to home
+      </Link>
+    </section>
+  );
 }
 
 export default Error404;

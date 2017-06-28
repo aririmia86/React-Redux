@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import Post from '../../posts/containers/Post.jsx';
-import api from '../../api.js';
-import Loading from '../../shared/containers/Loading.jsx';
+import Post from '../../posts/containers/Post';
+import api from '../../api';
+import Loading from '../../shared/components/Loading';
 import styles from './Page.css';
+import Title from '../../shared/components/Title';
 
 
 class Home extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
 
     this.state = {
@@ -20,14 +20,7 @@ class Home extends Component {
   }
 
   async componentDidMount() {
-    const posts = await api.posts.getList(this.state.page);
-
-    this.setState({
-      posts,
-      page: this.state.page + 1,
-      loading: false,
-    })
-
+    this.initialFetch();
     window.addEventListener('scroll', this.handleScroll);
   }
 
@@ -35,7 +28,16 @@ class Home extends Component {
     window.removeEventListener('scroll', this.handleScroll);
   }
 
-  handleScroll(event) {
+  async initialFetch() {
+    const posts = await api.posts.getList(this.state.page);
+    this.setState({
+      posts,
+      page: this.state.page + 1,
+      loading: false,
+    });
+  }
+
+  handleScroll() {
     if (this.state.loading) {
       return null;
     }
@@ -49,8 +51,7 @@ class Home extends Component {
       return null;
     }
 
-    this.setState({
-      loading: true,
+    return this.setState({ loading: true },
       async () => {
         try {
           const posts = await api.posts.getList(this.state.page);
@@ -60,21 +61,23 @@ class Home extends Component {
             page: this.state.page + 1,
             loading: false,
           });
-        }
-        catch (error) {
+        } catch (error) {
           console.error(error);
           this.setState({
-            loading: false
+            loading: false,
           });
         }
-      }
-    });
+      },
+    );
   }
 
 
   render() {
     return (
       <section name="Home" className={styles.section}>
+        <Title>
+          Home
+        </Title>
         <section className={styles.list}>
           {this.state.loading && (
             <Loading />

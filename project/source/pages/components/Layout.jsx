@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 function Layout(props) {
   return (
-    <html>
+    <html lang="en">
       <head>
         <meta charSet="utf-8" />
         <title>{props.title}</title>
@@ -22,5 +22,10 @@ function Layout(props) {
     </html>
   );
 }
+
+Layout.propTypes = {
+  title: PropTypes.string,
+  content: PropTypes.string,
+};
 
 export default Layout;

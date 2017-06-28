@@ -1,12 +1,15 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import Post from '../../posts/containers/Post.jsx';
-import api from '../../api.js';
-import Loading from '../../shared/containers/Loading.jsx';
+import React, { Component, PropTypes } from 'react';
+import Post from '../../posts/containers/Post';
+import Loading from '../../shared/components/Loading';
+import Title from '../../shared/components/Title';
+import styles from './Page.css';
+import api from '../../api';
+
 
 class Profile extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       user: {},
       posts: [],
@@ -14,10 +17,14 @@ class Profile extends Component {
     };
   }
 
-  async componentDidMount() {
+  componentDidMount() {
+    this.initialFetch();
+  }
+
+  async initialFetch() {
     const [
       user,
-      posts
+      posts,
     ] = await Promise.all([
       api.users.getSingle(this.props.params.id),
       api.users.getPosts(this.props.params.id),
@@ -27,22 +34,33 @@ class Profile extends Component {
       user,
       posts,
       loading: false,
-    })
+    });
   }
 
   render() {
     if (this.state.loading) {
-      return <Loading />
+      return <Loading />;
     }
+
     return (
-      <section name="Profile">
-        <h2>Profile of {this.state.user.name}</h2>
-        <fieldset>
-          <legend>Basic Info</legend>
-          <input type="email" value={this.state.user.email} disabled />          
-        </fieldset>
-        {this.state.user.address && (
-          <fieldset>
+      <section name="home">
+        <Title>
+          Profile of {this.state.user.name}
+        </Title>
+
+        <section id="profile" className={styles.main}>
+          <fieldset className={styles.field}>
+            <legend>Basic info</legend>
+            <label htmlFor="email">Email:</label>
+            <input
+              type="email"
+              id="email"
+              value={this.state.user.email}
+              disabled
+            />
+          </fieldset>
+
+          <fieldset className={styles.field}>
             <legend>Address</legend>
             <address>
               {this.state.user.address.street}<br />
@@ -51,16 +69,10 @@ class Profile extends Component {
               {this.state.user.address.zipcode}<br />
             </address>
           </fieldset>
-        )}
-        <section>
+        </section>
+        <section className={styles.list}>
           {this.state.posts
-            .map(post => (
-              <Post
-                key={post.id}
-                user={this.state.user}
-                {...post}
-              />
-            ))
+            .map(post => <Post key={post.id} {...post} user={this.state.user} />)
           }
         </section>
       </section>
@@ -68,6 +80,10 @@ class Profile extends Component {
   }
 }
 
-//Se pasa el usuario al componente Post para que sólo traiga los datos del usuario la primera vez
+Profile.propTypes = {
+  params: PropTypes.shape({
+    id: PropTypes.string,
+  }),
+};
 
 export default Profile;

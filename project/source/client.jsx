@@ -1,11 +1,11 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { StaticRouter } from 'react-router-dom';
-import Pages from './pages/containers/Page.jsx';
+import Pages from './pages/containers/Page';
 
-render (
+render(
   <StaticRouter>
     <Pages />
   </StaticRouter>,
-  document.getElementById('render-target')
-)
+  document.getElementById('render-target'),
+);
