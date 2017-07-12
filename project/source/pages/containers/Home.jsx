@@ -4,7 +4,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import Post from '../../posts/containers/Post';
-import api from '../../api';
 import Loading from '../../shared/components/Loading';
 import styles from './Page.css';
 import Title from '../../shared/components/Title';
@@ -81,7 +80,9 @@ class Home extends Component {
             <Loading />
           )}
           {this.props.posts
-            .map(post => <Post key={post.id} {...post} />)}
+            .map(post => <Post key={post.get('id')} {...post.toJS()} />)
+            .toArray()
+          }
         </section>
       </section>
     );
@@ -90,14 +91,12 @@ class Home extends Component {
 
 Home.propTypes = {
   actions: PropTypes.objectOf(PropTypes.func),
-  page: PropTypes.number,
-  posts: PropTypes.arrayOf(PropTypes.object),
+  posts: PropTypes.objectOf(PropTypes.object),
 };
 
 function mapStateToProps(state) {
   return {
-    page: state.posts.page,
-    posts: state.posts.entities,
+    posts: state.get('posts').get('entities'),
   };
 }
 
